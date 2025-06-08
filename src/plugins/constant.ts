@@ -134,7 +134,7 @@ export const dataset_columns = [
     title: "操作",
     slotName: "optional",
     fixed: "right",
-    width: 180,
+    width: 150,
   },
 ];
 
@@ -183,7 +183,7 @@ export const user_columns = [
     title: "操作",
     slotName: "optional",
     fixed: "right",
-    width: 210,
+    width: 280,
   },
 ];
 
@@ -304,7 +304,7 @@ export const team_columns = [
     title: "操作",
     slotName: "optional",
     fixed: "right",
-    width: 100,
+    width: 150,
   },
 ];
 
@@ -461,6 +461,6 @@ export const news_columns = [
     title: "操作",
     slotName: "optional",
     fixed: "right",
-    width: 180,
+    width: 150,
   },
 ];

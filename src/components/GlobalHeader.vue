@@ -98,6 +98,9 @@ const doLogOut = async () => {
   if (res.data.code === 200) {
     await store.dispatch("clearLoginUser");
     Message.success(res.data.message);
+    await router.push("/user/login");
+  } else {
+    Message.error("退出登录失败");
   }
 };
 </script>
