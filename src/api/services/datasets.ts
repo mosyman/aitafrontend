@@ -40,6 +40,6 @@ export const getDatasets = (params: GetDatasetsParams) => {
  * 获取单个数据集
  * @param id - 数据集ID
  */
-export const getDataset = (id: number) => {
+export const getDatasetById = (id: number) => {
   return service.get<GetDatasetResponse>(`/datasets/detail?id=${id}`);
 };

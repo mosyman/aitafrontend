@@ -13,3 +13,7 @@ export interface PagedData<T> {
   pageNum: number; // 当前页码
   pageSize: number; // 每页数量
 }
+
+export interface Props {
+  id: string;
+}

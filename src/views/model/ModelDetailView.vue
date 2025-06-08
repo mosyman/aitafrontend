@@ -1,10 +1,10 @@
 <template>
-  <div id="Group">团队</div>
+  <div id="ModelDetailView"></div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style scoped>
-#Group {
+#ModelDetailView {
 }
 </style>

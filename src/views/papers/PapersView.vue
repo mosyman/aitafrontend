@@ -30,9 +30,11 @@
           <div class="stats">
             <span class="stat-item"> <icon-user /> {{ item.author }} </span>
             <span class="stat-item">
-              <icon-calendar /> {{ formatDate(item.createTime) }}
+              <icon-calendar /> {{ formatDate(item.publishTime) }}
             </span>
-            <span class="stat-item"> <icon-message /> {{ item.type }} </span>
+            <span class="stat-item">
+              <icon-message /> {{ item.keywords }}
+            </span>
           </div>
         </div>
       </template>
@@ -44,23 +46,23 @@
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { Message } from "@arco-design/web-vue";
-import { DatasetItem, GetDatasetsParams } from "@/api/types/datasets";
-import { getDatasets } from "@/api/services/datasets";
 import {
   IconUser,
   IconCalendar,
   IconMessage,
 } from "@arco-design/web-vue/es/icon";
 import { formatDate } from "@/plugins/utils";
+import { GetPapersParams, PaperItem } from "@/api/types/papers";
+import { getPapers } from "@/api/services/papers";
 const router = useRouter();
-const dataList = ref<DatasetItem[]>([]);
+const dataList = ref<PaperItem[]>([]);
 const total = ref(0);
-const searchParams = ref<GetDatasetsParams>({
+const searchParams = ref<GetPapersParams>({
   pageSize: 10,
   pageNum: 1,
 });
 const loadData = async () => {
-  const res = await getDatasets(searchParams.value);
+  const res = await getPapers(searchParams.value);
   if (res.data.code === 200) {
     dataList.value = res.data.data.items;
     total.value = res.data.data.total;
@@ -86,8 +88,8 @@ const onPageChange = (page: number) => {
   };
 };
 
-const doClick = (item: DatasetItem) => {
-  router.push(`/dataset/detail/${item.id}`);
+const doClick = (item: PaperItem) => {
+  router.push(`/paper/detail/${item.id}`);
 };
 </script>
 

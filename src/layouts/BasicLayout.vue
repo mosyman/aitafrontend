@@ -2,7 +2,9 @@
   <div id="basicLayout">
     <a-layout style="min-height: 100vh">
       <a-layout-header class="header">
-        <GlobalHeader></GlobalHeader>
+        <a-affix>
+          <GlobalHeader></GlobalHeader>
+        </a-affix>
       </a-layout-header>
       <a-layout-content class="content">
         <router-view />
@@ -23,21 +25,17 @@ import GlobalFooter from "@/components/GlobalFooter.vue";
 
 #basicLayout .header {
   box-shadow: 1px 1px 5px #eee;
-  margin-bottom: 16px;
+  margin-bottom: 5px;
 }
 
 #basicLayout .content {
-  margin-bottom: 16px;
-  padding: 20px;
+  background-color: #fafafa;
+  margin-bottom: 28px;
+  padding: 0 20px;
 }
 
 #basicLayout .footer {
-  background: #efefef;
-  padding: 14px;
-  position: sticky;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  text-align: center;
+  background: #f7f8fa;
+  padding: 40px 30px;
 }
 </style>

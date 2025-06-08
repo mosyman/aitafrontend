@@ -1,13 +1,6 @@
 <template>
-  <div class="md-editor">
-    <Editor
-      :value="value || ''"
-      :plugins="plugins"
-      @change="handleChange"
-      :mode="mode"
-      class="bytemd"
-      placeholder="请输入markdown格式"
-    />
+  <div class="md-viewer">
+    <Viewer :value="value || ''" :plugins="plugins" />
   </div>
 </template>
 
@@ -22,22 +15,16 @@ import "katex/dist/katex.css";
 import gemoji from "@bytemd/plugin-gemoji";
 import breaks from "@bytemd/plugin-breaks";
 import frontmatter from "@bytemd/plugin-frontmatter";
-import { Editor } from "@bytemd/vue-next";
+import { Viewer } from "@bytemd/vue-next";
+import { withDefaults, defineProps } from "vue";
 
-import { defineProps, ref, withDefaults } from "vue";
-const mode = ref("split");
-
+/**
+ * 定义组件属性类型
+ */
 interface Props {
   value: string;
-  handleChange: (v: string) => void;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  value: () => "",
-  handleChange: (v: string) => {
-    console.log(v);
-  },
-});
 const plugins = [
   gfm(),
   highlight(),
@@ -47,16 +34,18 @@ const plugins = [
   gemoji(),
   breaks(),
   frontmatter(),
+  // Add more plugins here
 ];
+
+/**
+ * 给组件指定初始值
+ */
+const props = withDefaults(defineProps<Props>(), {
+  value: () => "",
+});
 </script>
 
 <style scoped>
 .md-editor {
-  .bytemd {
-    height: 300px;
-  }
-  .bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:last-child {
-    display: none;
-  }
 }
 </style>

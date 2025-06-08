@@ -11,6 +11,10 @@ export default {
     updateUser(state, payload) {
       state.loginUser = payload;
     },
+    // 清除用户
+    clearUser(state) {
+      state.loginUser = { name: "未登录" }; // 重置为初始状态
+    },
   },
   actions: {
     async getLoginUser({ commit, state }, payload) {
@@ -23,6 +27,10 @@ export default {
           role: AccessEnum.NOT_LOGIN,
         });
       }
+    },
+    // 清除用户
+    async clearLoginUser({ commit }) {
+      commit("clearUser");
     },
   },
 } as StoreOptions<any>;

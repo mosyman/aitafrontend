@@ -23,16 +23,15 @@
 
           <!-- 描述信息 -->
           <p class="item-desc">
-            {{ item.abstract }}
+            {{ item.content }}
           </p>
 
           <!-- 统计信息（作者、时间、下载、浏览等） -->
           <div class="stats">
             <span class="stat-item"> <icon-user /> {{ item.author }} </span>
             <span class="stat-item">
-              <icon-calendar /> {{ formatDate(item.createTime) }}
+              <icon-calendar /> {{ formatDate(item.publish_time) }}
             </span>
-            <span class="stat-item"> <icon-message /> {{ item.type }} </span>
           </div>
         </div>
       </template>
@@ -44,23 +43,19 @@
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { Message } from "@arco-design/web-vue";
-import { DatasetItem, GetDatasetsParams } from "@/api/types/datasets";
-import { getDatasets } from "@/api/services/datasets";
-import {
-  IconUser,
-  IconCalendar,
-  IconMessage,
-} from "@arco-design/web-vue/es/icon";
+import { IconUser, IconCalendar } from "@arco-design/web-vue/es/icon";
 import { formatDate } from "@/plugins/utils";
+import { GetNewsParams, NewsItem } from "@/api/types/news";
+import { getNewsList } from "@/api/services/news";
 const router = useRouter();
-const dataList = ref<DatasetItem[]>([]);
+const dataList = ref<NewsItem[]>([]);
 const total = ref(0);
-const searchParams = ref<GetDatasetsParams>({
+const searchParams = ref<GetNewsParams>({
   pageSize: 10,
   pageNum: 1,
 });
 const loadData = async () => {
-  const res = await getDatasets(searchParams.value);
+  const res = await getNewsList(searchParams.value);
   if (res.data.code === 200) {
     dataList.value = res.data.data.items;
     total.value = res.data.data.total;
@@ -86,8 +81,8 @@ const onPageChange = (page: number) => {
   };
 };
 
-const doClick = (item: DatasetItem) => {
-  router.push(`/dataset/detail/${item.id}`);
+const doClick = (item: NewsItem) => {
+  router.push(`/news/detail/${item.id}`);
 };
 </script>
 
