@@ -1,60 +1,76 @@
 <template>
-  <a-row align="center" :wrap="false" id="globalHeader">
-    <a-col flex="auto">
-      <a-menu
-        mode="horizontal"
-        :selected-keys="selectedKeys"
-        @menu-item-click="doMenuClick"
-      >
-        <a-menu-item
-          key="0"
-          :style="{ padding: 0, marginRight: '38px' }"
-          disabled
-        >
+  <div id="globalHeader">
+    <a-row align="center" :wrap="false">
+      <a-col flex="200px">
+        <router-link to="/">
           <div class="title-bar">
             <img src="@/assets/logo.png" alt="" class="logo" />
           </div>
-        </a-menu-item>
-        <!-- 使用 v-for 渲染菜单项和子菜单 -->
-        <template v-for="item in visibleRoutes">
-          <!-- 有子路由的菜单项使用 a-sub-menu -->
-          <a-sub-menu
-            v-if="item.children && item.children.length > 0"
-            :key="item.path + '-sub'"
-          >
-            <template #title>
-              {{ item.name }}
-            </template>
-            <a-menu-item
-              v-for="child in item.children"
-              :key="child.path"
-              :disabled="child.meta?.disabled"
+        </router-link>
+      </a-col>
+      <a-col flex="auto">
+        <a-menu
+          mode="horizontal"
+          :selected-keys="selectedKeys"
+          @menu-item-click="doMenuClick"
+        >
+          <!-- 使用 v-for 渲染菜单项和子菜单 -->
+          <template v-for="item in visibleRoutes">
+            <!-- 有子路由的菜单项使用 a-sub-menu -->
+            <a-sub-menu
+              v-if="item.children && item.children.length > 0"
+              :key="item.path + '-sub'"
             >
-              {{ child.name }}
-            </a-menu-item>
-          </a-sub-menu>
+              <template #title>
+                {{ item.name }}
+              </template>
+              <a-menu-item
+                v-for="child in item.children"
+                :key="child.path"
+                :disabled="child.meta?.disabled"
+              >
+                {{ child.name }}
+              </a-menu-item>
+            </a-sub-menu>
 
-          <!-- 无子路由的菜单项直接使用 a-menu-item -->
-          <a-menu-item v-else :key="item.path" :disabled="item.meta?.disabled">
-            {{ item.name }}
-          </a-menu-item>
-        </template>
-      </a-menu>
-    </a-col>
-    <a-col flex="100px">
-      <div v-if="store.state.user?.loginUser.account">
-        <a-dropdown>
-          <a-button>{{ store.state.user?.loginUser?.name ?? "无名" }}</a-button>
-          <template #content>
-            <a-doption @click="doLogOut">退出登录</a-doption>
+            <!-- 无子路由的菜单项直接使用 a-menu-item -->
+            <a-menu-item
+              v-else
+              :key="item.path"
+              :disabled="item.meta?.disabled"
+            >
+              {{ item.name }}
+            </a-menu-item>
           </template>
-        </a-dropdown>
-      </div>
-      <div v-else>
-        <a-button type="primary" href="/user/login">登录</a-button>
-      </div>
-    </a-col>
-  </a-row>
+        </a-menu>
+      </a-col>
+      <a-col flex="120px">
+        <div class="user-login-status">
+          <div v-if="store.state.user?.loginUser.account">
+            <a-dropdown>
+              <a-space>
+                <a-avatar
+                  :image-url="store.state.user?.loginUser?.avatar"
+                  :size="30"
+                />
+                {{ store.state.user?.loginUser?.name ?? "无名" }}
+              </a-space>
+              <template #content>
+                <a-menu @click="doLogOut">
+                  <a-space>
+                    <a-menu-item> <icon-unlock />退出登录 </a-menu-item>
+                  </a-space>
+                </a-menu>
+              </template>
+            </a-dropdown>
+          </div>
+          <div v-else>
+            <a-button type="primary" href="/user/login">登录</a-button>
+          </div>
+        </div>
+      </a-col>
+    </a-row>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -113,6 +129,9 @@ const doLogOut = async () => {
     .logo {
       height: 48px;
     }
+  }
+  .user-login-status {
+    background-color: #ffffff;
   }
 }
 </style>

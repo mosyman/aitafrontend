@@ -84,7 +84,7 @@ import { GetPapersParams, PaperItem } from "@/api/types/papers";
 import { getPapers } from "@/api/services/papers";
 import { images } from "@/plugins/constant";
 const newsParams = ref<GetNewsParams>({
-  pageSize: 6,
+  pageSize: 5,
   pageNum: 1,
 });
 const newsList = ref<NewsItem[]>([]);
@@ -99,7 +99,7 @@ const loadNews = async () => {
 
 const papersList = ref<PaperItem[]>([]);
 const searchParams = ref<GetPapersParams>({
-  pageSize: 6,
+  pageSize: 5,
   pageNum: 1,
 });
 const loadPapers = async () => {

@@ -24,6 +24,7 @@ import GlobalFooter from "@/components/GlobalFooter.vue";
 }
 
 #basicLayout .header {
+  background-color: #ffffff;
   box-shadow: 1px 1px 5px #eee;
   margin-bottom: 5px;
 }

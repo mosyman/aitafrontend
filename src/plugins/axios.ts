@@ -1,8 +1,12 @@
 import axios from "axios";
 
+// 区分开发和生产环境
+const DEV_BASE_URL = "http://localhost:5002/api";
+const PROD_BASE_URL = "http://49.232.73.108/api";
+
 // 创建 Axios 实例
 const service = axios.create({
-  baseURL: "http://localhost:5000/api", // 后端接口基础路径
+  baseURL: PROD_BASE_URL, // 后端接口基础路径
   // timeout: 10000, // 超时时间
   withCredentials: true, // 允许携带 Cookie
 });
